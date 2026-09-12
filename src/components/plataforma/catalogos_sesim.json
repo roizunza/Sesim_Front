@@ -1,0 +1,669 @@
+{
+  "cat_categoria": [
+    {
+      "id": "mapa_base",
+      "etiqueta": "Mapa Base"
+    },
+    {
+      "id": "diagnostico",
+      "etiqueta": "Diagnóstico"
+    },
+    {
+      "id": "estrategia",
+      "etiqueta": "Estrategias"
+    }
+  ],
+  "cat_cobertura": [
+    {
+      "id": "estatal",
+      "etiqueta": "Estatal"
+    },
+    {
+      "id": "municipal",
+      "etiqueta": "Municipal"
+    },
+    {
+      "id": "regional",
+      "etiqueta": "Regional"
+    },
+    {
+      "id": "localidad",
+      "etiqueta": "Localidad / Zona Urbana"
+    }
+  ],
+  "cat_instrumento": [
+    {
+      "id": "lgmsv",
+      "etiqueta": "Ley General de Movilidad y Seguridad Vial (LGMSV)"
+    },
+    {
+      "id": "enamov",
+      "etiqueta": "Estrategia Nacional de Movilidad (ENAMOV)"
+    },
+    {
+      "id": "ley_estatal",
+      "etiqueta": "Ley de Movilidad del Estado de Campeche"
+    },
+    {
+      "id": "eemsv",
+      "etiqueta": "Estrategia Estatal de Movilidad y Seguridad Vial, 2023"
+    },
+    {
+      "id": "ped",
+      "etiqueta": "Plan Estatal de Desarrollo (PED)"
+    },
+    {
+      "id": "pimus",
+      "etiqueta": "Programa Integral de Movilidad Urbana Sustentable"
+    },
+    {
+      "id": "pmduot",
+      "etiqueta": "Programa Municipal de Desarrollo Urbano y Ordenamiento Territorial"
+    }
+  ],
+  "cat_periodicidad": [
+    {
+      "id": "cada_1_anio",
+      "etiqueta": "Anual"
+    },
+    {
+      "id": "cada_2_anios",
+      "etiqueta": "Bienal"
+    },
+    {
+      "id": "cada_5_anios",
+      "etiqueta": "Quinquenal"
+    },
+    {
+      "id": "cada_15_anios",
+      "etiqueta": "Cada 15 años"
+    },
+    {
+      "id": "sin_periodicidad",
+      "etiqueta": "Sin periodicidad fija"
+    }
+  ],
+  "cat_eje_evaluacion": [
+    {
+      "id": "sectorial",
+      "etiqueta": "Sectorial"
+    },
+    {
+      "id": "desempeno",
+      "etiqueta": "De Desempeño"
+    }
+  ],
+  "cat_sector": [
+    {
+      "id": "gobierno",
+      "etiqueta": "Gobierno y Administración"
+    },
+    {
+      "id": "ambiente",
+      "etiqueta": "Ambiente, Cambio Climático y Riesgos"
+    },
+    {
+      "id": "observatorios",
+      "etiqueta": "Observatorios Ciudadanos"
+    },
+    {
+      "id": "inclusion",
+      "etiqueta": "Inclusión"
+    },
+    {
+      "id": "genero",
+      "etiqueta": "Género"
+    }
+  ],
+  "cat_horizonte": [
+    {
+      "id": "inmediato",
+      "etiqueta": "Inmediato"
+    },
+    {
+      "id": "corto",
+      "etiqueta": "Corto"
+    },
+    {
+      "id": "mediano",
+      "etiqueta": "Mediano"
+    },
+    {
+      "id": "largo",
+      "etiqueta": "Largo"
+    }
+  ],
+  "cat_estatus": [
+    {
+      "id": "borrador",
+      "etiqueta": "Borrador"
+    },
+    {
+      "id": "revision",
+      "etiqueta": "En Revisión"
+    },
+    {
+      "id": "vigente_admin",
+      "etiqueta": "Aprobado (Uso Interno)"
+    },
+    {
+      "id": "vigente_publico",
+      "etiqueta": "Aprobado (Público)"
+    },
+    {
+      "id": "rechazado",
+      "etiqueta": "Rechazado"
+    }
+  ],
+  "cat_instituciones": [
+    {
+      "id": "sedetu",
+      "etiqueta": "Secretaría de Desarrollo Territorial, Urbano y Obras Públicas (SEDETU)"
+    },
+    {
+      "id": "semabicce",
+      "etiqueta": "Secretaría de Medio Ambiente, Biodiversidad, Cambio Climático y Energía (SEMABICCE)"
+    },
+    {
+      "id": "sduec",
+      "etiqueta": "Secretaría de Desarrollo Urbano, Obras Públicas e Infraestructura"
+    },
+    {
+      "id": "inegi",
+      "etiqueta": "Instituto Nacional de Estadística y Geografía (INEGI)"
+    },
+    {
+      "id": "implan",
+      "etiqueta": "Instituto Municipal de Planeación (IMPLAN)"
+    },
+    {
+      "id": "otra",
+      "etiqueta": "Otra"
+    }
+  ],
+  "cat_anios": [
+    {
+      "id": "2026",
+      "etiqueta": "2026"
+    },
+    {
+      "id": "2025",
+      "etiqueta": "2025"
+    },
+    {
+      "id": "2024",
+      "etiqueta": "2024"
+    },
+    {
+      "id": "2023",
+      "etiqueta": "2023"
+    },
+    {
+      "id": "2022",
+      "etiqueta": "2022"
+    },
+    {
+      "id": "2021",
+      "etiqueta": "2021"
+    },
+    {
+      "id": "2020",
+      "etiqueta": "2020"
+    }
+  ],
+  "_fuente_cat_indicadores": "Poblado desde public/Datos/Tablas/Indicadores.csv (catálogo EEMSV, 113 indicadores): Código -> id, Indicador -> etiqueta. Decisión de Ismael (2026-09-12): reusar este CSV para el selector de captura en vez de esperar un catálogo curado aparte.",
+  "cat_indicadores": [
+    {
+      "id": "GA01",
+      "etiqueta": "Inversión total en proyectos de transporte público"
+    },
+    {
+      "id": "GA02",
+      "etiqueta": "Acceso a servicios de movilidad para el ejercicio de derechos sociales (salud)"
+    },
+    {
+      "id": "GA03",
+      "etiqueta": "Acceso a servicios de movilidad para el ejercicio de derechos sociales (educación)"
+    },
+    {
+      "id": "GA04",
+      "etiqueta": "Número de PIMUS financiados por el gobierno estatal"
+    },
+    {
+      "id": "GA05",
+      "etiqueta": "% de población con grado de acceso a carretera pavimentada bajo o muy bajo"
+    },
+    {
+      "id": "GA06",
+      "etiqueta": "% de población satisfecha con el servicio de transporte público"
+    },
+    {
+      "id": "GA07",
+      "etiqueta": "Inversión total en obras de infraestructura carretera, portuaria y aeroportuaria"
+    },
+    {
+      "id": "ACCGIR01",
+      "etiqueta": "Propiedad de vehículos motorizados en los hogares"
+    },
+    {
+      "id": "ACCGIR02",
+      "etiqueta": "Emisiones de CO2 equivalente por el autotransporte"
+    },
+    {
+      "id": "ACCGIR03",
+      "etiqueta": "% de instrumentos en materia territorial que transversalizan la movilidad"
+    },
+    {
+      "id": "ACCGIR04",
+      "etiqueta": "Extensión de km de ruta eléctrica (autobuses eléctricos, incluye trolebuses)"
+    },
+    {
+      "id": "ACCGIR05",
+      "etiqueta": "Número de flota de autobuses eléctricos en operación"
+    },
+    {
+      "id": "ACCGIR06",
+      "etiqueta": "Número de unidades de mototaxis eléctricas"
+    },
+    {
+      "id": "ACCGIR07",
+      "etiqueta": "Tasa de siniestros viales por cada 100 mil habitantes"
+    },
+    {
+      "id": "ACCGIR08",
+      "etiqueta": "Número de víctimas fatales por siniestros de tránsito"
+    },
+    {
+      "id": "ACCGIR09",
+      "etiqueta": "Protocolo de coordinación institucional en materia de seguridad vial"
+    },
+    {
+      "id": "ACCGIR10",
+      "etiqueta": "Percepción de la atención de protección civil en siniestros viales"
+    },
+    {
+      "id": "ACCGIR11",
+      "etiqueta": "Percepción de la atención de salud en siniestros viales"
+    },
+    {
+      "id": "ACCGIR12",
+      "etiqueta": "Percepción de atención de primeros respondientes en siniestros viales"
+    },
+    {
+      "id": "OC01",
+      "etiqueta": "Número de acciones de sensibilización sobre nuevos hábitos de movilidad (observatorios)"
+    },
+    {
+      "id": "OC02",
+      "etiqueta": "Número de observatorios ciudadanos sobre movilidad y seguridad vial constituidos por instituciones académicas"
+    },
+    {
+      "id": "OC03",
+      "etiqueta": "% de participación de observatorios ciudadanos en el SEMSV"
+    },
+    {
+      "id": "I01",
+      "etiqueta": "% de unidades de transporte público con asientos reservados para personas con discapacidad/grupos vulnerables"
+    },
+    {
+      "id": "I02",
+      "etiqueta": "% de operadores de transporte público con alguna discapacidad"
+    },
+    {
+      "id": "I03",
+      "etiqueta": "% de personas con discapacidad no congénita (derivada de accidente vial)"
+    },
+    {
+      "id": "I04",
+      "etiqueta": "Acciones ejecutadas del Manual de Accesibilidad Universal"
+    },
+    {
+      "id": "I05",
+      "etiqueta": "% de calles completas con accesibilidad universal en localidades urbanas"
+    },
+    {
+      "id": "I06",
+      "etiqueta": "% de calles con rampas para personas con discapacidad"
+    },
+    {
+      "id": "I07",
+      "etiqueta": "% de cajones de estacionamiento en vía pública reservados para personas con discapacidad"
+    },
+    {
+      "id": "I08",
+      "etiqueta": "% de calles con señalética podotáctil"
+    },
+    {
+      "id": "I09",
+      "etiqueta": "Número de semáforos sonoros en localidades urbanas"
+    },
+    {
+      "id": "G01",
+      "etiqueta": "% de rutas de transporte con dispositivos de seguridad y atención oportuna para mujeres"
+    },
+    {
+      "id": "G02",
+      "etiqueta": "% de unidades de transporte público con asientos reservados para mujeres embarazadas"
+    },
+    {
+      "id": "G03",
+      "etiqueta": "% de mujeres usuarias del transporte público"
+    },
+    {
+      "id": "EE01",
+      "etiqueta": "Km de red carretera"
+    },
+    {
+      "id": "EE02",
+      "etiqueta": "% de localidades con tiempo de traslado menor a una hora al centro de servicios"
+    },
+    {
+      "id": "EE03",
+      "etiqueta": "Km de calles urbanas pavimentadas"
+    },
+    {
+      "id": "EE04",
+      "etiqueta": "Grado de accesibilidad de localidades rurales a carreteras pavimentadas"
+    },
+    {
+      "id": "EE05",
+      "etiqueta": "Número de flota eléctrica para transporte de carga"
+    },
+    {
+      "id": "EE06",
+      "etiqueta": "Toneladas transportadas totales"
+    },
+    {
+      "id": "EE07",
+      "etiqueta": "Número de pasajeros anuales (aeroportuario)"
+    },
+    {
+      "id": "EE08",
+      "etiqueta": "Número de pasajeros anuales (ferroviario)"
+    },
+    {
+      "id": "EE09",
+      "etiqueta": "Toneladas transportadas anuales (ferroviario)"
+    },
+    {
+      "id": "EE10",
+      "etiqueta": "Reglamentos organizacionales y de operaciones de la ARTEC"
+    },
+    {
+      "id": "EE11",
+      "etiqueta": "% de municipios con institutos/direcciones de movilidad, transporte y seguridad vial"
+    },
+    {
+      "id": "EE12",
+      "etiqueta": "Inversión total en estudios y proyectos de transporte público integrado y sostenible"
+    },
+    {
+      "id": "EE13",
+      "etiqueta": "Emisiones de CO2 equivalente por el autotransporte"
+    },
+    {
+      "id": "EE14",
+      "etiqueta": "Número de unidades de transporte público certificadas"
+    },
+    {
+      "id": "EE15",
+      "etiqueta": "Satisfacción de personas usuarias con el servicio"
+    },
+    {
+      "id": "EE16",
+      "etiqueta": "Promedio de edad de la flota de transporte público colectivo"
+    },
+    {
+      "id": "EE17",
+      "etiqueta": "% de desplazamientos a pie para trabajo/escuela"
+    },
+    {
+      "id": "EE18",
+      "etiqueta": "% de programas municipales alineados a la EEMSV"
+    },
+    {
+      "id": "EE19",
+      "etiqueta": "Propiedad de bicicleta y/o triciclo de carga en hogares"
+    },
+    {
+      "id": "EE20",
+      "etiqueta": "% de municipios con al menos un programa especial ciclista"
+    },
+    {
+      "id": "EE21",
+      "etiqueta": "Extensión de red ciclista en la entidad (km)"
+    },
+    {
+      "id": "EE22",
+      "etiqueta": "Número de calles completas"
+    },
+    {
+      "id": "EE23",
+      "etiqueta": "Número de personas capacitadas en cultura de la movilidad"
+    },
+    {
+      "id": "EE24",
+      "etiqueta": "Tasa de motorización"
+    },
+    {
+      "id": "EE25",
+      "etiqueta": "Tasa de siniestros en sistemas de transporte urbano"
+    },
+    {
+      "id": "EE26",
+      "etiqueta": "Número de programas (uso de motocicletas)"
+    },
+    {
+      "id": "EE27",
+      "etiqueta": "Tasa de siniestralidad con motocicleta involucrada"
+    },
+    {
+      "id": "EE28",
+      "etiqueta": "Siniestralidad de tránsito en carreteras"
+    },
+    {
+      "id": "EE29",
+      "etiqueta": "Siniestralidad total anual"
+    },
+    {
+      "id": "EE30",
+      "etiqueta": "Número anual de operativos de alcoholimetría"
+    },
+    {
+      "id": "EE31",
+      "etiqueta": "Tasa de fallecimientos causados por siniestros de tránsito"
+    },
+    {
+      "id": "EE32",
+      "etiqueta": "Número de lesionados por siniestros de tránsito"
+    },
+    {
+      "id": "EE33",
+      "etiqueta": "Número de servidores públicos capacitados en cultura de seguridad vial"
+    },
+    {
+      "id": "EE34",
+      "etiqueta": "% de municipios que registran denuncias por violencia física/sexual hacia mujeres y niñas en transporte público"
+    },
+    {
+      "id": "EE35",
+      "etiqueta": "Percepción de inseguridad de mujeres en el transporte público"
+    },
+    {
+      "id": "EE36",
+      "etiqueta": "Tasa de violencia física/sexual hacia mujeres y niñas por cada 1,000 habitantes"
+    },
+    {
+      "id": "EE37",
+      "etiqueta": "% de usuarios con discapacidad en el transporte público"
+    },
+    {
+      "id": "EE38",
+      "etiqueta": "% de pasajeros con gratuidad o descuento en SIT"
+    },
+    {
+      "id": "EE39",
+      "etiqueta": "Número de programas, planes o iniciativas de movilidad con perspectiva de género"
+    },
+    {
+      "id": "IM-01",
+      "etiqueta": "Tiempo promedio de traslado"
+    },
+    {
+      "id": "IM-02",
+      "etiqueta": "Cobertura territorial del transporte público"
+    },
+    {
+      "id": "IM-03",
+      "etiqueta": "Cobertura de rutas de transporte"
+    },
+    {
+      "id": "IM-04",
+      "etiqueta": "Usuarios del transporte público"
+    },
+    {
+      "id": "IM-05",
+      "etiqueta": "Índice de ocupación de unidades"
+    },
+    {
+      "id": "IM-06",
+      "etiqueta": "Flota con tecnologías limpias"
+    },
+    {
+      "id": "IM-07",
+      "etiqueta": "Emisiones de GEI del transporte"
+    },
+    {
+      "id": "IM-08",
+      "etiqueta": "Emisiones contaminantes por transporte"
+    },
+    {
+      "id": "IM-09",
+      "etiqueta": "Kilómetros de infraestructura peatonal"
+    },
+    {
+      "id": "IM-10",
+      "etiqueta": "Banquetas accesibles"
+    },
+    {
+      "id": "IM-11",
+      "etiqueta": "Intersecciones seguras"
+    },
+    {
+      "id": "IM-12",
+      "etiqueta": "Kilómetros de infraestructura ciclista"
+    },
+    {
+      "id": "IM-13",
+      "etiqueta": "Biciestacionamientos instalados"
+    },
+    {
+      "id": "IM-14",
+      "etiqueta": "Usuarios de la bicicleta"
+    },
+    {
+      "id": "IM-15",
+      "etiqueta": "Biciescuelas implementadas"
+    },
+    {
+      "id": "IM-16",
+      "etiqueta": "Entornos escolares seguros"
+    },
+    {
+      "id": "IM-17",
+      "etiqueta": "Senderos seguros"
+    },
+    {
+      "id": "IM-18",
+      "etiqueta": "Siniestros viales"
+    },
+    {
+      "id": "IM-19",
+      "etiqueta": "Fallecidos por siniestros viales"
+    },
+    {
+      "id": "IM-20",
+      "etiqueta": "Lesionados por siniestros viales"
+    },
+    {
+      "id": "IM-21",
+      "etiqueta": "Señalización vial instalada"
+    },
+    {
+      "id": "IM-22",
+      "etiqueta": "Semaforización inteligente"
+    },
+    {
+      "id": "IM-23",
+      "etiqueta": "Cobertura de internet y tecnología para movilidad"
+    },
+    {
+      "id": "IM-24",
+      "etiqueta": "Sistemas de pago electrónico"
+    },
+    {
+      "id": "IM-25",
+      "etiqueta": "Regularización de mototaxis y bicitaxis"
+    },
+    {
+      "id": "IM-26",
+      "etiqueta": "Taxis con taxímetro"
+    },
+    {
+      "id": "IM-27",
+      "etiqueta": "Espacios públicos intervenidos"
+    },
+    {
+      "id": "IM-28",
+      "etiqueta": "Entornos de cuidado intervenidos"
+    },
+    {
+      "id": "IM-29",
+      "etiqueta": "Instrumentos normativos actualizados"
+    },
+    {
+      "id": "IM-30",
+      "etiqueta": "Estudios origen-destino elaborados"
+    },
+    {
+      "id": "IM-31",
+      "etiqueta": "Observatorio Ciudadano de Movilidad"
+    },
+    {
+      "id": "IM-32",
+      "etiqueta": "Talleres de participación ciudadana"
+    },
+    {
+      "id": "IM-33",
+      "etiqueta": "Proyectos turísticos con movilidad sostenible"
+    },
+    {
+      "id": "IM-34",
+      "etiqueta": "Conectividad con estaciones estratégicas (Tren Maya, puertos, terminales)"
+    },
+    {
+      "id": "IM-35",
+      "etiqueta": "Gestión del estacionamiento"
+    },
+    {
+      "id": "IM-36",
+      "etiqueta": "Infraestructura con accesibilidad universal"
+    },
+    {
+      "id": "IM-37",
+      "etiqueta": "Infraestructura verde vinculada a la movilidad"
+    },
+    {
+      "id": "IM-38",
+      "etiqueta": "Cobertura de mantenimiento vial"
+    },
+    {
+      "id": "IM-39",
+      "etiqueta": "Rutas escolares o transporte escolar"
+    },
+    {
+      "id": "IM-40",
+      "etiqueta": "Personas capacitadas en movilidad y seguridad vial"
+    }
+  ]
+}

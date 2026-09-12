@@ -1,0 +1,67 @@
+.indicadores-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-xl) var(--spacing-lg);
+}
+
+.indicadores-page h1 {
+  font-family: var(--font-heading);
+  color: var(--c-guinda);
+  margin-bottom: var(--spacing-xs);
+}
+
+.indicadores-conteo {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: var(--spacing-md) 0 var(--spacing-sm) 0;
+}
+
+.indicadores-error {
+  color: var(--status-rechazado);
+  font-size: 0.9rem;
+}
+
+/* Scroll propio en ambos ejes: la tabla es más ancha (14 columnas) y más
+   alta (114 filas) de lo que cabe en pantalla — mismo criterio que ya usa
+   `.modal-drawer-content`/`.capa-modal-content` para no desbordar la página. */
+.indicadores-scroll {
+  max-height: 70vh;
+  overflow: auto;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.indicadores-tabla {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.82rem;
+}
+
+.indicadores-tabla th {
+  position: sticky;
+  top: 0;
+  background: var(--c-guinda);
+  color: #ffffff;
+  text-align: left;
+  padding: 10px 12px;
+  white-space: nowrap;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.indicadores-tabla td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--surface-border);
+  color: var(--text-primary);
+  max-width: 320px;
+  vertical-align: top;
+}
+
+.indicadores-tabla tbody tr:nth-child(even) {
+  background: rgba(15, 23, 42, 0.02);
+}
+
+.indicadores-tabla tbody tr:hover {
+  background: rgba(159, 34, 65, 0.06);
+}

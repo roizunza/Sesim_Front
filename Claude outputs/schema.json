@@ -1,0 +1,246 @@
+{
+  "tables": [
+    {
+      "name": "core.perfil",
+      "source_file": "101_schema_core_perfil.sql",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "pk": true,
+          "unique": false,
+          "not_null": false,
+          "fk": null,
+          "on_delete": null
+        },
+        {
+          "name": "id_usuario",
+          "type": "uuid",
+          "pk": false,
+          "unique": true,
+          "not_null": true,
+          "fk": {
+            "table": "auth.users",
+            "column": "id"
+          },
+          "on_delete": "cascade"
+        },
+        {
+          "name": "nombre",
+          "type": "text",
+          "pk": false,
+          "unique": false,
+          "not_null": true,
+          "fk": null,
+          "on_delete": null
+        },
+        {
+          "name": "rol",
+          "type": "text",
+          "pk": false,
+          "unique": false,
+          "not_null": true,
+          "fk": null,
+          "on_delete": null
+        },
+        {
+          "name": "ambito",
+          "type": "text",
+          "pk": false,
+          "unique": false,
+          "not_null": true,
+          "fk": null,
+          "on_delete": null
+        },
+        {
+          "name": "cve_mun",
+          "type": "text",
+          "pk": false,
+          "unique": false,
+          "not_null": false,
+          "fk": null,
+          "on_delete": null
+        },
+        {
+          "name": "dependencia",
+          "type": "text",
+          "pk": false,
+          "unique": false,
+          "not_null": false,
+          "fk": null,
+          "on_delete": null
+        },
+        {
+          "name": "activo",
+          "type": "boolean",
+          "pk": false,
+          "unique": false,
+          "not_null": true,
+          "fk": null,
+          "on_delete": null
+        },
+        {
+          "name": "creado_en",
+          "type": "timestamptz",
+          "pk": false,
+          "unique": false,
+          "not_null": true,
+          "fk": null,
+          "on_delete": null
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "check",
+          "name": "perfil_rol_valido",
+          "expr": "rol in ('capturista', 'administrador', 'administrador_vip', 'auditor')"
+        },
+        {
+          "kind": "check",
+          "name": "perfil_ambito_valido",
+          "expr": "ambito in ('estatal', 'municipal')"
+        },
+        {
+          "kind": "check",
+          "name": "perfil_ambito_municipio_consistente",
+          "expr": "(ambito = 'municipal' and cve_mun is not null) or (ambito = 'estatal' and cve_mun is null)"
+        }
+      ]
+    },
+    {
+      "name": "core.bitacora",
+      "source_file": "104_schema_core_bitacora.sql",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "pk": true,
+          "unique": false,
+          "not_null": false,
+          "fk": null,
+          "on_delete": null
+        },
+        {
+          "name": "actor_id_usuario",
+          "type": "uuid",
+          "pk": false,
+          "unique": false,
+          "not_null": false,
+          "fk": {
+            "table": "auth.users",
+            "column": "id"
+          },
+          "on_delete": "set null"
+        },
+        {
+          "name": "actor_rol",
+          "type": "text",
+          "pk": false,
+          "unique": false,
+          "not_null": false,
+          "fk": null,
+          "on_delete": null
+        },
+        {
+          "name": "objetivo_id_usuario",
+          "type": "uuid",
+          "pk": false,
+          "unique": false,
+          "not_null": true,
+          "fk": {
+            "table": "auth.users",
+            "column": "id"
+          },
+          "on_delete": "cascade"
+        },
+        {
+          "name": "objetivo_rol",
+          "type": "text",
+          "pk": false,
+          "unique": false,
+          "not_null": true,
+          "fk": null,
+          "on_delete": null
+        },
+        {
+          "name": "accion",
+          "type": "text",
+          "pk": false,
+          "unique": false,
+          "not_null": true,
+          "fk": null,
+          "on_delete": null
+        },
+        {
+          "name": "detalle",
+          "type": "jsonb",
+          "pk": false,
+          "unique": false,
+          "not_null": true,
+          "fk": null,
+          "on_delete": null
+        },
+        {
+          "name": "creado_en",
+          "type": "timestamptz",
+          "pk": false,
+          "unique": false,
+          "not_null": true,
+          "fk": null,
+          "on_delete": null
+        }
+      ],
+      "constraints": [
+        {
+          "kind": "check",
+          "name": "bitacora_accion_valida",
+          "expr": "accion in ('alta', 'cambio_rol', 'cambio_ambito', 'baja', 'reactivacion')"
+        }
+      ]
+    }
+  ],
+  "views": [
+    {
+      "name": "api.perfil",
+      "source_file": "103_schema_api.sql",
+      "security_invoker": true,
+      "sources": [
+        {
+          "table": "core.perfil",
+          "alias": "core.perfil"
+        }
+      ]
+    },
+    {
+      "name": "api.bitacora",
+      "source_file": "106_api_bitacora.sql",
+      "security_invoker": true,
+      "sources": [
+        {
+          "table": "core.bitacora",
+          "alias": "b"
+        },
+        {
+          "table": "core.perfil",
+          "alias": "po"
+        },
+        {
+          "table": "core.perfil",
+          "alias": "pa"
+        }
+      ]
+    }
+  ],
+  "triggers": [
+    {
+      "name": "trg_bitacora_perfil",
+      "table": "core.perfil",
+      "function": "core.fn_bitacora_perfil",
+      "events": "insert or update",
+      "writes_to": [
+        "core.bitacora"
+      ],
+      "source_file": "104_schema_core_bitacora.sql"
+    }
+  ]
+}
