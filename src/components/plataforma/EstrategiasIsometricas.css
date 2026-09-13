@@ -1,0 +1,152 @@
+/* Bloque isométrico "Estrategias EEMSV" — ver EstrategiasIsometricas.jsx.
+   Cada eje: dos PNG superpuestos (base + animación, revelada con opacity en
+   hover/foco) + título siempre visible + tarjeta de KPIs desplegable. */
+
+.iso-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  align-items: start;
+}
+
+.iso-quad {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  padding: 0 10px;
+}
+
+.iso-shell {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.iso-base,
+.iso-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.iso-overlay {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.iso-quad:hover .iso-overlay,
+.iso-quad:focus-visible .iso-overlay {
+  opacity: 1;
+}
+
+.iso-title {
+  margin-top: 10px;
+  font-family: var(--font-heading);
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--c-text);
+  text-align: center;
+  line-height: 1.25;
+}
+
+/* --- Tarjeta de KPIs: colapsada por defecto, se despliega en hover/foco --- */
+.iso-kpi-panel {
+  margin-top: 10px;
+  background: var(--c-white);
+  border: 1px solid var(--surface-border);
+  border-top: 3px solid var(--c-gray-md);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  padding: 0 14px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease, padding 0.35s ease;
+}
+
+.iso-quad:hover .iso-kpi-panel,
+.iso-quad:focus-visible .iso-kpi-panel {
+  max-height: 260px;
+  opacity: 1;
+  padding: 14px 14px 16px;
+}
+
+.iso-synopsis {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.iso-kpi-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.iso-kpi-tag {
+  align-self: flex-start;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: var(--c-verde-dk);
+  background: #EEF2ED;
+  padding: 3px 9px;
+  border-radius: 10px;
+}
+
+.iso-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  background: var(--c-guinda);
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.82rem;
+  padding: 7px 14px;
+  border-radius: 999px;
+  transition: background 0.2s ease;
+}
+
+.iso-quad:hover .iso-cta,
+.iso-quad:focus-visible .iso-cta {
+  background: var(--c-guinda-dk);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iso-overlay,
+  .iso-kpi-panel,
+  .iso-cta {
+    transition: none;
+  }
+}
+
+/* --- Responsive: sin hover real en pantallas angostas, la tarjeta de KPIs
+   queda siempre visible en vez de depender de un gesto que no existe. --- */
+@media (max-width: 900px) {
+  .iso-grid {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 28px;
+  }
+  .iso-kpi-panel {
+    max-height: none;
+    opacity: 1;
+    padding: 14px 14px 16px;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 560px) {
+  .iso-grid {
+    grid-template-columns: 1fr;
+  }
+}

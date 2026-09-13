@@ -1,7 +1,11 @@
 .map-container-wrapper {
   flex: 1;
   width: 100%;
-  height: calc(100vh - 120px); /* Esto evita que el mapa desaparezca */
+  /* Antes: calc(100vh - 120px), una resta fija que asumía un alto exacto de
+     Header+Navbar. Ahora vive dentro de `.page-content` (Plataforma.css),
+     que YA le da exactamente el espacio restante vía flexbox — sea cual sea
+     el alto real de Header/Navbar/Footer/Underfooter. */
+  height: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
