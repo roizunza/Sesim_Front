@@ -1,0 +1,532 @@
+<title>Propuesta Landing SESIM</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --paper:#F3F4EF;
+    --paper-2:#E8E9E1;
+    --paper-3:#FFFFFF;
+    --ink:#161E19;
+    --ink-soft:#4C564E;
+    --line:#D6D2C4;
+    --guinda:#9F2241;
+    --guinda-soft:#F6E4E9;
+    --verde:#183B33;
+    --verde-soft:#E3EAE6;
+    --pin:#E8336D;
+    --pin-soft:#FDE3EC;
+    --eje1:#F97316;
+    --eje2:#0E6EC5;
+    --eje3:#0FCE9A;
+    --eje4:#C00000;
+    --eje5:#9333EA;
+    --shadow: 0 1px 2px rgba(22,30,25,.06), 0 8px 24px -12px rgba(22,30,25,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#12160F;
+      --paper-2:#1B2118;
+      --paper-3:#1F251C;
+      --ink:#ECEFE9;
+      --ink-soft:#AEB9AC;
+      --line:#333B2F;
+      --guinda:#E06285;
+      --guinda-soft:#33212A;
+      --verde:#69C6A6;
+      --verde-soft:#1E2E27;
+      --pin:#FF6FA0;
+      --pin-soft:#33212A;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 28px -14px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#12160F;
+    --paper-2:#1B2118;
+    --paper-3:#1F251C;
+    --ink:#ECEFE9;
+    --ink-soft:#AEB9AC;
+    --line:#333B2F;
+    --guinda:#E06285;
+    --guinda-soft:#33212A;
+    --verde:#69C6A6;
+    --verde-soft:#1E2E27;
+    --pin:#FF6FA0;
+    --pin-soft:#33212A;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 28px -14px rgba(0,0,0,.6);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:'Work Sans', system-ui, sans-serif;
+    padding:0 16px; padding-block:0;
+  }
+  h1,h2,h3{font-family:'Fjalla One','Arial Narrow',sans-serif; font-weight:400; letter-spacing:.3px; text-wrap:balance; margin:0;}
+  .mono{font-family:'IBM Plex Mono',ui-monospace,monospace;}
+  a{color:inherit;}
+  img,[style*="aspect-ratio"]{max-width:100%;}
+
+  .page{max-width:920px; margin:0 auto; padding-block:40px 80px;}
+
+  /* ---------- masthead ---------- */
+  .masthead{padding:32px 0 28px; border-bottom:1px solid var(--line);}
+  .masthead .eyebrow{color:var(--guinda);}
+  .masthead h1{font-size:clamp(28px,5vw,44px); line-height:1.05; margin-top:10px; max-width:14ch;}
+  .masthead .sub{margin-top:14px; color:var(--ink-soft); font-size:16px; max-width:56ch; line-height:1.55;}
+  .meta-row{display:flex; flex-wrap:wrap; gap:8px 10px; margin-top:22px;}
+  .meta-chip{
+    font-size:11.5px; letter-spacing:.04em; text-transform:uppercase;
+    padding:6px 10px; border:1px solid var(--line); border-radius:999px; color:var(--ink-soft);
+    background:var(--paper-3);
+  }
+  .legend{
+    display:flex; flex-wrap:wrap; gap:18px; margin-top:24px; padding-top:20px; border-top:1px dashed var(--line);
+  }
+  .legend-item{display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--ink-soft);}
+  .legend-badge{
+    width:20px; height:20px; border-radius:50%; background:var(--pin); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-size:11px; flex:none;
+  }
+  .legend-swatch{width:20px; height:10px; border-top:2px dashed var(--verde); flex:none;}
+  .legend-frame{width:20px; height:14px; border:1.5px solid var(--ink-soft); border-radius:3px; flex:none; position:relative;}
+  .legend-frame::before{content:'';position:absolute; top:2px; left:2px; right:2px; height:2px; background:var(--ink-soft);}
+
+  /* ---------- eyebrow / section titles ---------- */
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--verde); font-weight:600;
+  }
+
+  /* ---------- browser frame ---------- */
+  .frame-wrap{margin-top:36px;}
+  .browser-frame{
+    border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--paper-3);
+    box-shadow:var(--shadow);
+  }
+  .chrome-bar{
+    display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--paper-2);
+    border-bottom:1px solid var(--line);
+  }
+  .dots{display:flex; gap:6px;}
+  .dots span{width:9px; height:9px; border-radius:50%; background:var(--line);}
+  .url-pill{
+    flex:1; text-align:center; font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft);
+    background:var(--paper); border:1px solid var(--line); border-radius:999px; padding:5px 12px;
+    max-width:320px; margin:0 auto;
+  }
+  .viewport{padding:0;}
+
+  section.mock{position:relative; padding:44px 28px; border-bottom:1px dashed var(--line);}
+  section.mock:last-of-type{border-bottom:none;}
+  .pin{
+    position:absolute; top:14px; right:14px; width:26px; height:26px; border-radius:50%;
+    background:var(--pin); color:#fff; font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:12px;
+    display:flex; align-items:center; justify-content:center; box-shadow:0 3px 8px rgba(232,51,109,.35);
+  }
+
+  /* hero */
+  .s-hero{
+    background:
+      radial-gradient(120% 160% at 100% 0%, rgba(159,34,65,.16), transparent 55%),
+      repeating-linear-gradient(115deg, transparent 0 42px, rgba(255,255,255,.05) 42px 44px),
+      linear-gradient(160deg, var(--verde) 0%, #0E241E 100%);
+    color:#F4F5F0; border-radius:10px; padding:56px 30px !important;
+  }
+  .s-hero .kicker{color:#B9D8CB; font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.1em; text-transform:uppercase;}
+  .s-hero h2{font-size:clamp(22px,4vw,34px); line-height:1.12; margin-top:12px; max-width:20ch; color:#fff;}
+  .s-hero p{margin-top:14px; max-width:56ch; color:#D7E4DC; line-height:1.6; font-size:15px;}
+  .s-hero .cue{margin-top:26px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:#B9D8CB; display:inline-flex; gap:6px; align-items:center;}
+
+  /* intro */
+  .s-intro h2{font-size:24px; margin-top:8px;}
+  .s-intro p{color:var(--ink-soft); line-height:1.65; font-size:15px; max-width:62ch; margin-top:12px;}
+
+  /* objectives */
+  .s-objectives h2{font-size:24px; margin-top:8px;}
+  .obj-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:22px;}
+  .obj-card{
+    background:var(--paper-2); border:1px solid var(--line); border-radius:10px; padding:18px;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .obj-card .ic{width:34px; height:34px; border-radius:8px; background:var(--verde-soft); color:var(--verde); display:flex; align-items:center; justify-content:center;}
+  .obj-card h3{font-family:'Work Sans'; font-weight:600; font-size:15.5px;}
+  .obj-card p{margin:0; color:var(--ink-soft); font-size:13.5px; line-height:1.55;}
+
+  /* ejes / route */
+  .s-ejes h2{font-size:26px; margin-top:8px;}
+  .s-ejes .sub{color:var(--ink-soft); font-size:14.5px; margin-top:8px; max-width:60ch; line-height:1.55;}
+  .route{position:relative; margin-top:34px;}
+  .route-line{
+    position:absolute; left:5%; right:5%; top:26px; height:0; border-top:3px dashed var(--verde); opacity:.55;
+  }
+  .route-track{display:flex; gap:18px; position:relative;}
+  .stop{flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; text-align:center; gap:10px;}
+  .stop .badge{
+    width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    color:#fff; box-shadow:0 6px 14px -6px rgba(0,0,0,.35); border:3px solid var(--paper-3); position:relative; z-index:1;
+  }
+  .stop .num{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-soft);}
+  .stop h3{font-size:14px; font-family:'Work Sans'; font-weight:700; line-height:1.25; margin-top:2px;}
+  .stop p{margin:0; font-size:12.5px; color:var(--ink-soft); line-height:1.4;}
+  .stop .tag{
+    margin-top:4px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; padding:4px 8px; border-radius:999px;
+    border:1px solid var(--line); color:var(--ink-soft);
+  }
+
+  /* methodology */
+  .s-method h2{font-size:24px; margin-top:8px;}
+  .method-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:22px;}
+  .tile{background:var(--paper-2); border:1px solid var(--line); border-radius:10px; padding:22px;}
+  .tile .n{font-family:'Fjalla One'; font-size:52px; line-height:1; color:var(--guinda);}
+  .tile .label{margin-top:6px; font-weight:600; font-size:14.5px;}
+  .tile ul{margin:12px 0 0; padding-left:0; list-style:none; display:flex; flex-direction:column; gap:6px;}
+  .tile li{font-size:12.5px; color:var(--ink-soft); padding-left:14px; position:relative;}
+  .tile li::before{content:'—'; position:absolute; left:0; color:var(--line);}
+
+  /* modules */
+  .s-modules h2{font-size:24px; margin-top:8px;}
+  .mod-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:22px;}
+  .mod-card{border:1px solid var(--line); border-radius:10px; padding:18px; background:var(--paper-2); position:relative;}
+  .mod-card.here{background:var(--guinda-soft); border-color:var(--guinda);}
+  .mod-card .here-flag{position:absolute; top:10px; right:10px; font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--guinda); letter-spacing:.05em;}
+  .mod-card .ic{width:30px; height:30px; border-radius:7px; background:var(--paper-3); display:flex; align-items:center; justify-content:center; color:var(--verde);}
+  .mod-card h3{font-size:14.5px; font-weight:600; font-family:'Work Sans'; margin-top:10px;}
+  .mod-card p{font-size:12.5px; color:var(--ink-soft); margin-top:6px; line-height:1.5;}
+  .mod-card .path{display:block; margin-top:8px; font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-soft);}
+
+  /* footer mock */
+  .s-footer{background:var(--verde); color:#DCE7E1; border-radius:0 0 8px 8px; padding:26px 28px !important;}
+  .s-footer .org{font-weight:600; font-size:14px; color:#fff;}
+  .s-footer .tagline{font-size:12px; color:#AFC6BB; margin-top:4px;}
+
+  /* annotations */
+  .annot{
+    padding:20px 22px 22px 24px !important; background:var(--paper); border-bottom:1px dashed var(--line);
+  }
+  .annot .arrow{color:var(--pin); font-size:15px; line-height:1;}
+  .annot .a-eyebrow{display:flex; align-items:center; gap:8px; margin-top:6px;}
+  .annot .a-num{
+    width:20px; height:20px; border-radius:50%; background:var(--pin); color:#fff; font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px; display:flex; align-items:center; justify-content:center; flex:none;
+  }
+  .annot .a-eyebrow span.txt{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--pin); font-weight:600;}
+  .annot h4{font-family:'Work Sans'; font-weight:700; font-size:15.5px; margin-top:10px;}
+  .annot p{margin:8px 0 0; font-size:13.5px; color:var(--ink-soft); line-height:1.62; max-width:70ch;}
+  .annot.big{background:var(--pin-soft);}
+  .annot.big h4{font-size:17px;}
+
+  /* closing method notes */
+  .method-notes{margin-top:46px;}
+  .method-notes h2{font-size:22px;}
+  .note-list{margin-top:18px; display:flex; flex-direction:column; gap:16px;}
+  .note{display:flex; gap:14px; align-items:flex-start;}
+  .note .idx{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--verde); border:1px solid var(--line);
+    border-radius:50%; width:26px; height:26px; display:flex; align-items:center; justify-content:center; flex:none;
+  }
+  .note p{margin:0; font-size:14px; color:var(--ink-soft); line-height:1.65;}
+  .note p b{color:var(--ink); font-weight:600;}
+  .closing-line{
+    margin-top:28px; padding:16px 18px; border-left:3px solid var(--guinda); background:var(--guinda-soft);
+    font-size:13.5px; color:var(--ink); border-radius:0 8px 8px 0; line-height:1.6;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:760px){
+    .obj-grid, .method-grid, .mod-grid{grid-template-columns:1fr;}
+    .route-line{display:none;}
+    .route-track{flex-direction:column; gap:22px; align-items:stretch;}
+    .stop{flex-direction:row; text-align:left; align-items:flex-start; gap:14px; position:relative; padding-left:2px;}
+    .stop::before{
+      content:''; position:absolute; left:25px; top:52px; bottom:-22px; width:0; border-left:3px dashed var(--verde); opacity:.55;
+    }
+    .stop:last-child::before{display:none;}
+    .stop .badge{flex:none;}
+    .stop .stopbody{display:flex; flex-direction:column; align-items:flex-start; gap:6px;}
+  }
+  @media (min-width:761px){
+    .stop .stopbody{display:contents;}
+  }
+</style>
+
+<div class="page">
+
+  <header class="masthead">
+    <div class="eyebrow">Propuesta UX/UI · Ciclo 1 · Vista pública SESIM</div>
+    <h1>Maquetación de la landing pública</h1>
+    <p class="sub">Sistema Estatal de Seguimiento a Indicadores de Movilidad y Seguridad Vial — Estado de Campeche. Propuesta de layout para revisión, con detalle del bloque horizontal de los cinco Ejes Estratégicos EEMSV.</p>
+    <div class="meta-row">
+      <span class="meta-chip">Alcance: solo landing</span>
+      <span class="meta-chip">Geovisor y monitoreo: ya existen</span>
+      <span class="meta-chip">Código fuente: sin cambios</span>
+      <span class="meta-chip">13 sep 2026</span>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><span class="legend-badge">1</span> anotación de diseño</div>
+      <div class="legend-item"><span class="legend-frame"></span> maqueta de la página</div>
+      <div class="legend-item"><span class="legend-swatch"></span> ruta de los Ejes Estratégicos</div>
+    </div>
+  </header>
+
+  <div class="frame-wrap">
+    <div class="browser-frame">
+      <div class="chrome-bar">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="url-pill">sesim.campeche.gob.mx</div>
+      </div>
+      <div class="viewport">
+
+        <section class="mock s-hero">
+          <span class="pin">1</span>
+          <div class="kicker">SESIM · Gobierno del Estado de Campeche</div>
+          <h2>Sistema Estatal de Seguimiento a Indicadores de Movilidad y Seguridad Vial</h2>
+          <p>Un solo punto de acceso público para consultar, comparar y dar seguimiento a los indicadores de movilidad y seguridad vial del estado — por eje estratégico, por municipio y en el tiempo.</p>
+          <div class="cue">Conocer el sistema &#8595;</div>
+        </section>
+        <div class="annot mock" data-n="1">
+          <div class="arrow">&#9650;</div>
+          <div class="a-eyebrow"><span class="a-num">1</span><span class="txt">Encabezado</span></div>
+          <h4>Identidad institucional antes que navegación</h4>
+          <p>Lo primero que debe resolver un visitante — ciudadano, dependencia o auditor — es de qué gobierno y de qué sistema se trata, antes de cualquier llamado a la acción. Se conserva el nombre oficial completo del sistema (no solo la sigla) y la atribución al Estado, tal como ya lo resuelve <span class="mono">Inicio.jsx</span>; aquí se refuerza con más jerarquía tipográfica y un fondo inspirado en trazas viales, sin duplicar el fondo animado real del código.</p>
+        </div>
+
+        <section class="mock s-intro">
+          <span class="pin">2</span>
+          <div class="eyebrow">¿Para quién es SESIM?</div>
+          <h2>Un mismo tablero para tres públicos</h2>
+          <p>Dependencias estatales y municipales consultan aquí el estatus de los indicadores que les corresponde reportar. Auditoría y organismos de control verifican el origen y la evolución de cada dato. Cualquier persona en Campeche puede consultar, sin necesidad de cuenta, el desempeño territorial en movilidad y seguridad vial.</p>
+          <p>La vista pública — landing, geovisor y monitoreo — es la puerta de entrada a los tres.</p>
+        </section>
+        <div class="annot mock" data-n="2">
+          <div class="arrow">&#9650;</div>
+          <div class="a-eyebrow"><span class="a-num">2</span><span class="txt">Introducción</span></div>
+          <h4>Nombrar a los tres públicos, no solo describir el sistema</h4>
+          <p>Un sitio de gobierno se valida más rápido cuando el visitante se reconoce en el texto ("esto es para mí") que cuando lee una descripción abstracta del sistema. Se mantiene en dos párrafos, sin scroll adicional, y se deja la explicación funcional detallada para las tarjetas de objetivos que siguen.</p>
+        </div>
+
+        <section class="mock s-objectives">
+          <span class="pin">3</span>
+          <div class="eyebrow">Objetivos del sistema</div>
+          <h2>Qué resuelve SESIM</h2>
+          <div class="obj-grid">
+            <div class="obj-card">
+              <div class="ic">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M18 7v3a4 4 0 0 1-4 4H8a4 4 0 0 0-4 4"/></svg>
+              </div>
+              <h3>Organizar y homologar</h3>
+              <p>Un mismo criterio para capturar y clasificar indicadores en las 34 categorías sectoriales y 39 de desempeño, sin importar la dependencia de origen.</p>
+            </div>
+            <div class="obj-card">
+              <div class="ic">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <h3>Visualizar patrones</h3>
+              <p>Comportamiento, estatus y distribución territorial de cada indicador, cruzado por municipio y por eje estratégico.</p>
+            </div>
+            <div class="obj-card">
+              <div class="ic">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+              <h3>Preservar trazabilidad</h3>
+              <p>Cada dato conserva su bitácora de origen: quién lo capturó, cuándo se validó y qué evidencia lo respalda.</p>
+            </div>
+          </div>
+        </section>
+        <div class="annot mock" data-n="3">
+          <div class="arrow">&#9650;</div>
+          <div class="a-eyebrow"><span class="a-num">3</span><span class="txt">Objetivos</span></div>
+          <h4>Tres tarjetas, no tres párrafos</h4>
+          <p>Se conserva la estructura ya validada en <span class="mono">Inicio.jsx</span>: en una página pública de gobierno el visitante escanea, no lee corrido. Cada tarjeta responde una sola pregunta — ¿qué hace, sobre qué, con qué garantía? — con el mismo lenguaje de íconos de línea que ya usa la app.</p>
+        </div>
+
+        <section class="mock s-ejes">
+          <span class="pin">4</span>
+          <div class="eyebrow">Evaluación transversal</div>
+          <h2>Ejes Estratégicos EEMSV</h2>
+          <p class="sub">Cinco estrategias del Estado de Campeche en movilidad y seguridad vial. Cada una concentra sus propias capas geoespaciales y sus indicadores sectoriales y de desempeño.</p>
+
+          <div class="route">
+            <div class="route-line"></div>
+            <div class="route-track">
+
+              <div class="stop">
+                <div class="badge" style="background:#F97316">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                </div>
+                <div class="stopbody">
+                  <div class="num">EJE 1</div>
+                  <h3>Desarrollo Económico Territorial</h3>
+                  <p>Redes logísticas y territorio.</p>
+                  <div class="tag">/geovisor?estrategia=eje1</div>
+                </div>
+              </div>
+
+              <div class="stop">
+                <div class="badge" style="background:#0E6EC5">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6v6M16 6v6M2 12h19.6M18 18h3v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2h3"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+                </div>
+                <div class="stopbody">
+                  <div class="num">EJE 2</div>
+                  <h3>Transporte Público de Personas</h3>
+                  <p>Calidad, eficiencia y tecnología.</p>
+                  <div class="tag">/geovisor?estrategia=eje2</div>
+                </div>
+              </div>
+
+              <div class="stop">
+                <div class="badge" style="background:#0FCE9A">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM12 17.5V14l-3-3 4-3 2 3h2"/></svg>
+                </div>
+                <div class="stopbody">
+                  <div class="num">EJE 3</div>
+                  <h3>Movilidad Activa</h3>
+                  <p>Infraestructura ciclista y peatonal.</p>
+                  <div class="tag">/geovisor?estrategia=eje3</div>
+                </div>
+              </div>
+
+              <div class="stop">
+                <div class="badge" style="background:#C00000">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="M12 8v5"/><path d="M12 16h.01"/></svg>
+                </div>
+                <div class="stopbody">
+                  <div class="num">EJE 4</div>
+                  <h3>Seguridad Vial</h3>
+                  <p>Enfoque de Sistema Seguro.</p>
+                  <div class="tag">/geovisor?estrategia=eje4</div>
+                </div>
+              </div>
+
+              <div class="stop">
+                <div class="badge" style="background:#9333EA">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <div class="stopbody">
+                  <div class="num">EJE 5</div>
+                  <h3>Género e Inclusión</h3>
+                  <p>Equidad y accesibilidad universal.</p>
+                  <div class="tag">/geovisor?estrategia=eje5</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+        <div class="annot big mock" data-n="4">
+          <div class="arrow">&#9650;</div>
+          <div class="a-eyebrow"><span class="a-num">4</span><span class="txt">Ejes estratégicos — layout horizontal</span></div>
+          <h4>Una ruta, no una rejilla</h4>
+          <p>Esta es la pieza que se pidió maquetar en horizontal. En vez de una rejilla genérica de tarjetas, los cinco ejes se presentan como <b>paradas sobre una línea de ruta punteada</b> — la misma metáfora de vialidad que le da sentido al sistema. Cada parada conserva el color y el ícono que ya usa <span class="mono">ejesEstrategicos.js</span> en el código real (naranja, azul, verde agua, rojo, morado), así que la propuesta no inventa una paleta nueva para las estrategias: solo la reordena en horizontal, con más aire y jerarquía que una rejilla de tarjetas apiladas. En pantallas angostas la ruta gira a vertical — mismas cinco paradas, misma línea punteada, leídas de arriba hacia abajo en vez de izquierda a derecha. Cada parada sigue enlazando a <span class="mono">/geovisor?estrategia=ejeN</span>, igual que hoy.</p>
+        </div>
+
+        <section class="mock s-method">
+          <span class="pin">5</span>
+          <div class="eyebrow">Clasificación de indicadores</div>
+          <h2>73 indicadores, dos lógicas de seguimiento</h2>
+          <div class="method-grid">
+            <div class="tile">
+              <div class="n">34</div>
+              <div class="label">Indicadores Sectoriales</div>
+              <ul>
+                <li>Gobierno y Administración</li>
+                <li>Ambiente, Cambio Climático y Gestión de Riesgos</li>
+                <li>Observatorios Ciudadanos</li>
+                <li>Inclusión y Género</li>
+              </ul>
+            </div>
+            <div class="tile">
+              <div class="n">39</div>
+              <div class="label">Indicadores de Desempeño</div>
+              <ul>
+                <li>Inmediato y Corto plazo</li>
+                <li>Mediano plazo</li>
+                <li>Largo plazo</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <div class="annot mock" data-n="5">
+          <div class="arrow">&#9650;</div>
+          <div class="a-eyebrow"><span class="a-num">5</span><span class="txt">Clasificación</span></div>
+          <h4>Aquí sí el número es la noticia</h4>
+          <p>A diferencia de las tarjetas de objetivos, en esta sección la cifra es el contenido, no un adorno: 34 y 39 son datos verificables del catálogo real (<span class="mono">catalogos_sesim.json</span>). Por eso se usan como tile grande con el número al frente, siguiendo la misma taxonomía que ya muestra <span class="mono">Inicio.jsx</span>, solo con más contraste tipográfico entre la cifra y la lista de categorías que la componen.</p>
+        </div>
+
+        <section class="mock s-modules">
+          <span class="pin">6</span>
+          <div class="eyebrow">Vista pública</div>
+          <h2>Un portal, tres puertas</h2>
+          <div class="mod-grid">
+            <div class="mod-card here">
+              <span class="here-flag">Estás aquí</span>
+              <div class="ic">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>
+              </div>
+              <h3>Landing pública</h3>
+              <p>Presentación institucional del sistema, sus objetivos y sus ejes estratégicos.</p>
+              <span class="path">/</span>
+            </div>
+            <div class="mod-card">
+              <div class="ic">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20Z"/></svg>
+              </div>
+              <h3>Geovisualizador SIG</h3>
+              <p>Mapa base, diagnóstico y capas de los cinco ejes, con simbología QGIS real.</p>
+              <span class="path">/geovisor</span>
+            </div>
+            <div class="mod-card">
+              <div class="ic">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              </div>
+              <h3>Monitoreo de Indicadores</h3>
+              <p>Tabla y seguimiento de los 73 indicadores sectoriales y de desempeño.</p>
+              <span class="path">/monitoreo</span>
+            </div>
+          </div>
+        </section>
+        <div class="annot mock" data-n="6">
+          <div class="arrow">&#9650;</div>
+          <div class="a-eyebrow"><span class="a-num">6</span><span class="txt">Módulos</span></div>
+          <h4>Cerrar mostrando el mapa completo del sitio</h4>
+          <p>El TDR describe la vista pública como landing + geovisualizador + monitoreo. Esta propuesta solo maqueta la landing, pero la cierra reafirmando las tres puertas — incluida la propia página en la que se está — para dejar explícito que geovisor y monitoreo no son secciones nuevas por construir: ya existen (<span class="mono">MapViewer.jsx</span>, <span class="mono">MonitoreoIndicadores.jsx</span>) y solo faltaría, en un siguiente incremento, revisar su maquetación con el mismo criterio.</p>
+        </div>
+
+        <footer class="mock s-footer">
+          <span class="pin">7</span>
+          <div class="org">SESIM · Gobierno del Estado de Campeche</div>
+          <div class="tagline">Sistema Estatal de Seguimiento a Indicadores de Movilidad y Seguridad Vial</div>
+        </footer>
+        <div class="annot mock" data-n="7">
+          <div class="arrow">&#9650;</div>
+          <div class="a-eyebrow"><span class="a-num">7</span><span class="txt">Pie</span></div>
+          <h4>Pie institucional, sin ruido</h4>
+          <p>Un pie de gobierno solo necesita reafirmar la atribución institucional. No se proponen enlaces adicionales que no estén ya resueltos en <span class="mono">Footer.jsx</span> / <span class="mono">Underfooter.jsx</span> del código actual.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <section class="method-notes">
+    <div class="eyebrow">Anexo</div>
+    <h2>Notas de método</h2>
+    <div class="note-list">
+      <div class="note">
+        <div class="idx">1</div>
+        <p><b>Fuentes usadas:</b> los documentos ya generados en este proyecto durante el Ciclo 1 (arranque de usuarios, consolidación del front, correcciones de flujo) y lectura directa de <span class="mono">Inicio.jsx</span> y <span class="mono">ejesEstrategicos.js</span> como línea base real del código actual.</p>
+      </div>
+      <div class="note">
+        <div class="idx">2</div>
+        <p><b>Sobre el TDR en PDF:</b> "TERMINOS DE REFERENCIA.pdf" está cargado en el proyecto, pero en esta sesión su texto no pudo extraerse — ni la lectura directa ni la búsqueda semántica devolvieron contenido legible del archivo. Lo que aquí se marca como requisito de TDR viene de lo ya documentado en este proyecto a partir de él, no de una cita nueva y literal. Si compartes el texto (o un export a .docx/.md), puedo verificar cada sección de esta propuesta contra el TDR línea por línea.</p>
+      </div>
+      <div class="note">
+        <div class="idx">3</div>
+        <p><b>Alcance de este incremento:</b> solo la landing. El geovisualizador y el monitoreo de indicadores ya están construidos y en operación; quedan fuera de esta maqueta a propósito, para revisarlos con el mismo criterio en un siguiente paso si así lo confirmas.</p>
+      </div>
+    </div>
+    <div class="closing-line">
+      No se modificó ningún archivo del repositorio para esta propuesta — es una maqueta independiente, pensada para validarse contigo antes de tocar <span class="mono">Inicio.jsx</span> / <span class="mono">Inicio.css</span>.
+    </div>
+  </section>
+
+</div>
