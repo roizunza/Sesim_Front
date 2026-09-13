@@ -58,8 +58,8 @@ const StreetLinesBackground = () => {
     // --- ESTÉTICA TECH CLARA (INSTITUCIONAL) ---
     const HEX_SIZE = 5.5;
     const HEX_GAP = 1.5;
-    const COLOR_ESTADO = 'rgba(148, 163, 184, 0.4)'; // Gris tenue
-    const COLOR_VIAL = 'rgba(138, 21, 56, 0.85)';    // Guinda Institucional
+    const COLOR_ESTADO = 'rgba(162, 196, 247, 0.4)'; // Gris tenue
+    const COLOR_VIAL = 'rgba(211, 12, 145, 0.85)';    // Guinda Institucional
 
     const drawHexagon = (context, x, y, size, fillStyle, opacity) => {
       context.beginPath();
@@ -147,7 +147,7 @@ const StreetLinesBackground = () => {
         });
 
         // 2. Dibujar Carreteras
-        offCtx.strokeStyle = '#ff0000';
+        offCtx.strokeStyle = '#ff00ea';
         offCtx.lineWidth = HEX_SIZE * 1.5;
         offCtx.lineCap = 'round';
         offCtx.lineJoin = 'round';
