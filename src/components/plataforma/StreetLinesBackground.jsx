@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import { geoMercator, geoPath } from 'd3-geo';
+import { geoMercator } from 'd3-geo';
 
-const ASSET_URL = '/assets/campeche-roads.json';
 const LIMITE_URL = '/Datos/Lim_Est_Base.json';
+const VIAS_URL = '/Datos/Red_Carreteras_Campeche.geojson';
 
-// --- FUNCIONES GEOMÉTRICAS ORIGINALES ---
+// Extrae los límites reales sin importar los errores de dibujo del INEGI
 function bboxDeGeoJSON(geojson) {
   let lonMin = Infinity, lonMax = -Infinity, latMin = Infinity, latMax = -Infinity;
   function visitar(coords, profundidad) {
@@ -26,6 +26,7 @@ function bboxDeGeoJSON(geojson) {
   return [[lonMin, latMin], [lonMax, latMax]];
 }
 
+// Escala y centra el mapa de Campeche en el Canvas
 function proyeccionAjustadaABbox(bbox, rectDestino) {
   const [[lonMin, latMin], [lonMax, latMax]] = bbox;
   const base = geoMercator().scale(1).translate([0, 0]);
@@ -52,17 +53,13 @@ const StreetLinesBackground = () => {
 
     let animationFrameId;
     let hexGrid = [];
-    let stateBounds = null;
-    let roadsData = null;
     let cancelado = false;
 
     // --- ESTÉTICA TECH CLARA (INSTITUCIONAL) ---
-    const HEX_SIZE = 5.5; 
-    const HEX_GAP = 1.5;  
-    
-    // Contraste ajustado para la silueta tech
-    const COLOR_ESTADO = 'rgba(148, 163, 184, 0.35)'; // Gris tenue
-    const COLOR_VIAL = 'rgba(138, 21, 56, 0.7)';      // Guinda Institucional
+    const HEX_SIZE = 5.5;
+    const HEX_GAP = 1.5;
+    const COLOR_ESTADO = 'rgba(148, 163, 184, 0.4)'; // Gris tenue
+    const COLOR_VIAL = 'rgba(138, 21, 56, 0.85)';    // Guinda Institucional
 
     const drawHexagon = (context, x, y, size, fillStyle, opacity) => {
       context.beginPath();
@@ -79,77 +76,103 @@ const StreetLinesBackground = () => {
       context.fill();
     };
 
+    // Validador estricto para evitar que Vite pase páginas de error HTML como datos
+    const fetchJSON = async (url) => {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP Error ${response.status}`);
+      const text = await response.text();
+      try {
+        return JSON.parse(text);
+      } catch (e) {
+        console.error(`El archivo ${url} no es un JSON válido. Respuesta de Vite:`, text.slice(0, 150));
+        throw new Error(`El archivo ${url} está corrupto o la ruta es incorrecta.`);
+      }
+    };
+
     const initGrid = async () => {
       const rect = canvas.getBoundingClientRect();
       if (rect.width === 0 || rect.height === 0) return;
 
       const W = Math.ceil(rect.width);
       const H = Math.ceil(rect.height);
-
       const dpr = window.devicePixelRatio || 1;
+      
       canvas.width = W * dpr;
       canvas.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       try {
-        if (!stateBounds || !roadsData) {
-          const [roadsRes, limiteRes] = await Promise.all([
-            fetch(ASSET_URL),
-            fetch(LIMITE_URL)
-          ]);
-          roadsData = await roadsRes.json();
-          stateBounds = await limiteRes.json();
-        }
+        const [stateBounds, roadsData] = await Promise.all([
+          fetchJSON(LIMITE_URL),
+          fetchJSON(VIAS_URL)
+        ]);
 
         if (cancelado) return;
 
-        // 1. Proyección exacta usando la BBox del Estado
         const projection = proyeccionAjustadaABbox(bboxDeGeoJSON(stateBounds), [
-          [20, 20],
-          [W - 20, H - 20],
+          [30, 30], 
+          [W - 30, H - 30]
         ]);
 
-        // 2. CANVAS INVISIBLE PARA MUESTREO
         const offscreen = document.createElement('canvas');
         offscreen.width = W;
         offscreen.height = H;
         const offCtx = offscreen.getContext('2d', { willReadFrequently: true });
-        
-        const pathGenerator = geoPath().projection(projection).context(offCtx);
 
-        // Fondo negro (vacío)
         offCtx.fillStyle = '#000000';
         offCtx.fillRect(0, 0, W, H);
 
-        // Dibujar Silueta de Campeche en Azul
+        // --- DIBUJO MANUAL INMUNE A ERRORES DEL INEGI ---
+        
+        // 1. Dibujar Silueta de Campeche
         offCtx.fillStyle = '#0000ff';
         stateBounds.features.forEach(feature => {
-            offCtx.beginPath();
-            pathGenerator(feature);
-            offCtx.fill('evenodd');
+          if (!feature.geometry) return;
+          const { type, coordinates } = feature.geometry;
+          offCtx.beginPath();
+          
+          const drawRing = (ring) => {
+            ring.forEach(([lon, lat], i) => {
+              const pt = projection([lon, lat]);
+              if (!pt) return;
+              if (i === 0) offCtx.moveTo(pt[0], pt[1]);
+              else offCtx.lineTo(pt[0], pt[1]);
+            });
+          };
+
+          if (type === 'Polygon') coordinates.forEach(drawRing);
+          else if (type === 'MultiPolygon') coordinates.forEach(polygon => polygon.forEach(drawRing));
+          
+          offCtx.fill('evenodd'); // Relleno perfecto nativo
         });
 
-        // Dibujar Carreteras en Rojo usando el formato compactado {c, g}
+        // 2. Dibujar Carreteras
         offCtx.strokeStyle = '#ff0000';
-        offCtx.lineWidth = HEX_SIZE * 1.2; // Grosor para atrapar el muestreo
+        offCtx.lineWidth = HEX_SIZE * 1.5;
         offCtx.lineCap = 'round';
         offCtx.lineJoin = 'round';
-        
-        roadsData.forEach(calle => {
-          calle.g.forEach(linea => {
-            offCtx.beginPath();
-            linea.forEach((coords, i) => {
-              const [x, y] = projection(coords);
-              if (i === 0) offCtx.moveTo(x, y);
-              else offCtx.lineTo(x, y);
+        roadsData.features.forEach(feature => {
+          if (!feature.geometry) return;
+          const { type, coordinates } = feature.geometry;
+          offCtx.beginPath();
+          
+          const drawLine = (line) => {
+            line.forEach(([lon, lat], i) => {
+              const pt = projection([lon, lat]);
+              if (!pt) return;
+              if (i === 0) offCtx.moveTo(pt[0], pt[1]);
+              else offCtx.lineTo(pt[0], pt[1]);
             });
-            offCtx.stroke();
-          });
+          };
+
+          if (type === 'LineString') drawLine(coordinates);
+          else if (type === 'MultiLineString') coordinates.forEach(drawLine);
+          
+          offCtx.stroke();
         });
 
-        // 3. GENERAR MALLA DE MUESTREO
+        // --- MUESTREO DE LA MATRIZ ---
         const imageData = offCtx.getImageData(0, 0, W, H).data;
-
         const hexWidth = HEX_SIZE * Math.sqrt(3);
         const hexHeight = HEX_SIZE * 2;
         const xOffset = hexWidth + HEX_GAP;
@@ -162,38 +185,32 @@ const StreetLinesBackground = () => {
           for (let x = 0; x < W + HEX_SIZE; x += xOffset) {
             const hexX = x + (row % 2 === 0 ? 0 : hexWidth / 2);
             const hexY = y;
-            
             const px = Math.floor(hexX);
             const py = Math.floor(hexY);
 
             if (px < 0 || px >= W || py < 0 || py >= H) continue;
 
             const idx = (py * W + px) * 4;
-            const r = imageData[idx];     // Carretera
-            const b = imageData[idx + 2]; // Estado
-
-            const isRoad = r > 128;
-            const isState = b > 128;
+            const isRoad = imageData[idx] > 128;     // Canal Rojo
+            const isState = imageData[idx + 2] > 128; // Canal Azul
 
             if (isRoad || isState) {
               hexGrid.push({
                 x: hexX,
                 y: hexY,
                 isRoad: isRoad,
-                phase: Math.random() * Math.PI * 2, 
+                phase: Math.random() * Math.PI * 2,
                 speed: 0.5 + Math.random() * 1.0
               });
             }
           }
           row++;
         }
-
       } catch (error) {
-        console.error("Error cargando los datos espaciales:", error);
+        console.error("Error cargando la malla:", error.message);
       }
     };
 
-    // 4. ANIMACIÓN SUTIL
     let startTime = Date.now();
     const render = () => {
       if (cancelado) return;
@@ -204,12 +221,11 @@ const StreetLinesBackground = () => {
 
       hexGrid.forEach(hex => {
         const sineWave = Math.sin(currentTime * hex.speed + hex.phase);
-        
         if (hex.isRoad) {
-          const opacity = 0.4 + (sineWave * 0.4); 
+          const opacity = 0.5 + (sineWave * 0.4);
           drawHexagon(ctx, hex.x, hex.y, HEX_SIZE + 0.5, COLOR_VIAL, opacity);
         } else {
-          const opacity = 0.15 + (sineWave * 0.25); 
+          const opacity = 0.15 + (sineWave * 0.25);
           drawHexagon(ctx, hex.x, hex.y, HEX_SIZE, COLOR_ESTADO, opacity);
         }
       });
