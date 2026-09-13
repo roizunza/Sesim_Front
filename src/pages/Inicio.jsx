@@ -11,12 +11,16 @@ const Inicio = () => {
           
           <div className="vista-intro__texto">
             <h1>Sistema Estatal de Seguimiento a Indicadores de Movilidad y Seguridad Vial</h1>
+            
             <p className="vista-intro__sinopsis">
-              El SESIM vincula información normativa, estratégica y estadística para operar en
-              tres niveles: estatal, municipal y por instrumento de planeación. Contribuye a
-              consolidar un modelo de gestión pública eficiente, orientado al cumplimiento de los
-              objetivos en materia de movilidad y seguridad vial, así como de los Planes Integrales
-              de Movilidad Urbana Sustentable (PIMUS) municipales.
+              Plataforma que vincula información normativa, estratégica y estadística para operar en
+              tres niveles: estatal, municipal y por instrumento de planeación. 
+            </p>
+
+            <p className="vista-intro__sinopsis">
+              Su objetivo es contribuir a la consolidación de un modelo de gestión pública eficiente, 
+              orientado al cumplimiento de los objetivos en materia de movilidad y seguridad vial, 
+              así como de los Planes Integrales de Movilidad Urbana Sustentable (PIMUS) municipales.
             </p>
           </div>
 
