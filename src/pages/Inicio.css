@@ -1,13 +1,11 @@
-/* Landing page: 2 vistas con scroll-snap CSS (sin JS) — ver Inicio.jsx.
-   `.inicio-page` es la única región que se desliza; vive dentro de
-   `<main class="page-content">` (Plataforma.jsx/.css), que ya no tiene
-   scroll propio porque esta página lo maneja internamente. */
+/* Landing page: 2 vistas con scroll-snap CSS (sin JS) */
 
 .inicio-page {
   height: 100%;
   overflow-y: auto;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
+  background-color: #F8F9FA;
 }
 
 .vista {
@@ -20,48 +18,57 @@
   padding: var(--spacing-xl) var(--spacing-xl);
   max-width: 1280px;
   margin: 0 auto;
+  position: relative;
 }
 
-/* --- Vista 1: título + sinopsis | mapa de Campeche --- */
-.vista-intro__grid {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: var(--spacing-xl);
+/* --- Vista 1: Layout Asimétrico --- */
+.vista-intro__container {
+  display: flex;
   align-items: center;
   width: 100%;
+  height: 100%;
+  position: relative;
+  min-height: 80vh;
 }
 
 .vista-intro__texto {
   text-align: left;
+  width: 100%;
+  max-width: 60%; 
+  position: relative;
+  z-index: 2; 
+  /* Empujamos todo el bloque de texto un poco hacia arriba */
+  transform: translateY(-5vh); 
 }
 
 .vista-intro__texto h1 {
   font-family: var(--font-heading);
-  font-size: 2.4rem;
+  font-size: 3.2rem;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.15;
   color: var(--c-guinda);
-  letter-spacing: -0.02em;
-  margin-bottom: var(--spacing-lg);
+  letter-spacing: -0.03em;
+  /* Aumentamos el margen drásticamente para mandar la sinopsis hacia abajo */
+  margin-bottom: 5rem; 
 }
 
 .vista-intro__sinopsis {
   font-family: var(--font-body);
-  font-size: 1.05rem;
-  line-height: 1.7;
+  font-size: 0.85rem;
+  line-height: 1.6;
   color: var(--text-secondary);
-  max-width: 560px;
+  max-width: 420px; 
 }
 
-/* Mismo look decorativo tenue de siempre (sin caja blanca, sin borde, sin
-   sombra) — el único cambio real es que ahora vive en su propio contenedor
-   de la vista (antes: fondo a pantalla completa detrás del título) y se
-   ajusta para mostrar Campeche completo. El fundido hacia los bordes
-   (radial-gradient) es el mismo que ya traía. */
+/* Mapa anclado a la derecha con fundido a la izquierda */
 .vista-intro__mapa {
-  position: relative;
-  width: 100%;
-  height: 480px;
+  position: absolute;
+  right: -5%; 
+  top: 0;
+  width: 65%; 
+  height: 100%;
+  z-index: 1;
+  pointer-events: none; 
 }
 
 .vista-intro__mapa .street-lines-background {
@@ -69,8 +76,8 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  mask-image: radial-gradient(ellipse at center, black 45%, transparent 85%);
-  -webkit-mask-image: radial-gradient(ellipse at center, black 45%, transparent 85%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.05) 20%, black 50%, black 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.05) 20%, black 50%, black 100%);
 }
 
 /* --- Vista 2: Estrategias EEMSV --- */
@@ -107,22 +114,36 @@
   margin: var(--spacing-md) 0 var(--spacing-xl) 0;
 }
 
-/* El bloque de las 5 escenas isométricas vive en EstrategiasIsometricas.css
-   (componente EstrategiasIsometricas.jsx). */
-
+/* --- Responsive para Móviles --- */
 @media (max-width: 900px) {
-  .vista-intro__grid {
-    grid-template-columns: 1fr;
+  .vista-intro__container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .vista-intro__texto {
+    max-width: 100%;
+    margin-top: 40px;
+    transform: translateY(0); /* Reseteamos el empuje en celular */
   }
   .vista-intro__texto h1 {
-    font-size: 1.9rem;
+    font-size: 2.2rem;
+    margin-bottom: 2.5rem; /* Reducimos el margen en celular para que quepa */
+  }
+  .vista-intro__sinopsis {
+    max-width: 100%;
   }
   .vista-intro__mapa {
-    height: 320px;
+    position: relative;
+    width: 100%;
+    height: 380px;
+    right: 0;
+    order: -1; 
   }
-  /* En pantallas angostas cada vista puede necesitar más que un viewport de
-     alto (título + mapa apilados) — se deja crecer en vez de recortar el
-     mapa, el snap sigue alineando al inicio de cada vista. */
+  .vista-intro__mapa .street-lines-background {
+    mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+  }
   .vista {
     min-height: auto;
     padding: var(--spacing-xl) var(--spacing-lg);
