@@ -1,7 +1,9 @@
 /* ─── Cascarón fijo (las 4 rutas públicas) ──────────────────────────────
-   Header, Navbar, Footer y Underfooter quedan fijos; solo `.page-content`
-   se desliza — mismo patrón que ya usaba AppLayout.jsx para las pantallas
-   autenticadas, aplicado ahora también a Inicio/Geovisor/Login/Monitoreo. */
+   Header, Navbar y Underfooter quedan fijos; `.page-content` se desliza —
+   mismo patrón que ya usaba AppLayout.jsx para las pantallas autenticadas.
+   El Footer YA NO es fijo: vive dentro de `.page-content` (ver
+   Plataforma.jsx, justo después del <Outlet/>), así que se desliza junto
+   con el contenido de cada página y solo aparece al llegar al final. */
 .app-container {
   display: flex;
   flex-direction: column;
@@ -148,11 +150,10 @@
 }
 .navbar__search-input::placeholder { color: var(--c-gray-md); }
 
-/* ─── Footer ─────────────────────────────────────────────────────────── */
+/* ─── Footer (ya no es parte del cascarón fijo, ver arriba) ─────────────── */
 .footer {
   background: #ededee;
   border-top: 1px solid #e5e7eb;
-  flex-shrink: 0;
 }
 .footer__inner {
   max-width: 1280px;
@@ -249,19 +250,6 @@
   .navbar__link { padding: 12px 14px; font-size: 13px; }
   .navbar__search { padding: 8px 0; width: 100%; }
   .navbar__search-input { width: 100%; border-radius: 4px; }
-
-  /* El footer institucional (4 columnas → 1 en pantallas angostas) fijo
-     puede ser más alto que lo que queda de viewport tras Header+Navbar+
-     Underfooter — sin este tope, `.page-content` (el único elemento
-     flexible del cascarón) se comprime a 0 y el contenido de la página
-     queda invisible. Se acota su alto y se le da scroll propio, mismo
-     patrón ya usado en `.indicadores-scroll`/`.map-sidebar` — el footer
-     sigue "fijo" (nunca se desliza fuera de vista), solo su contenido
-     largo se vuelve alcanzable con un scroll interno corto. */
-  .footer {
-    max-height: 26vh;
-    overflow-y: auto;
-  }
 }
 
 @media (max-width: 480px) {

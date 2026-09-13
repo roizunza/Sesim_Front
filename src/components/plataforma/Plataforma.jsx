@@ -13,8 +13,8 @@ const Plataforma = () => {
       <Navbar />
       <main className="page-content">
         <Outlet />
+        <Footer />
       </main>
-      <Footer />
       <Underfooter />
     </div>
   );
